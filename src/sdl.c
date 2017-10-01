@@ -8,6 +8,7 @@ static UG_GUI gui;
 UG_WINDOW window_1;
 #define MAX_OBJECTS        10
 UG_OBJECT obj_buff_wnd_1[MAX_OBJECTS];
+UG_BUTTON button1_1;
 
 void window_1_callback( UG_MESSAGE* msg )
 {
@@ -40,6 +41,10 @@ int main (int argc, char **argv)
     UG_WindowSetTitleTextFont( &window_1, &FONT_8X8 );
     UG_WindowSetTitleText( &window_1, "UGUI with SDL" );
 
+    UG_ButtonCreate( &window_1, &button1_1, BTN_ID_0, 10, 10, 110, 60 );
+    UG_ButtonSetFont( &window_1, BTN_ID_0, &FONT_8X8 );
+    UG_ButtonSetText( &window_1, BTN_ID_0, "Start" );
+
     UG_WindowShow( &window_1 );
 
     do{
@@ -47,6 +52,12 @@ int main (int argc, char **argv)
             switch(e.type){
             case SDL_QUIT:
                 done = 1;
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                UG_TouchUpdate(e.button.x,e.button.y,TOUCH_STATE_PRESSED);
+                break;
+            case SDL_MOUSEBUTTONUP:
+                UG_TouchUpdate(-1,-1,TOUCH_STATE_RELEASED);
                 break;
             }
         }
