@@ -5,6 +5,14 @@
 static SDL_Surface *screen;
 static UG_GUI gui;
 
+UG_WINDOW window_1;
+#define MAX_OBJECTS        10
+UG_OBJECT obj_buff_wnd_1[MAX_OBJECTS];
+
+void window_1_callback( UG_MESSAGE* msg )
+{
+}
+
 void sdl_pset(uint16_t x, uint16_t y, uint32_t c)
 {
     SDL_Rect dest;
@@ -28,6 +36,12 @@ int main (int argc, char **argv)
     UG_Init(&gui,(void(*)(UG_S16,UG_S16,UG_COLOR))sdl_pset,480,320);
     UG_FillScreen( C_BLUE );
 
+    UG_WindowCreate( &window_1, obj_buff_wnd_1, MAX_OBJECTS, window_1_callback );
+    UG_WindowSetTitleTextFont( &window_1, &FONT_8X8 );
+    UG_WindowSetTitleText( &window_1, "UGUI with SDL" );
+
+    UG_WindowShow( &window_1 );
+
     do{
         if (SDL_PollEvent(&e) != 0){
             switch(e.type){
@@ -37,6 +51,7 @@ int main (int argc, char **argv)
             }
         }
 
+        UG_Update();
         SDL_UpdateRect(screen,0,0,0,0);
     }while(!done);
 
