@@ -1,0 +1,3 @@
+[submodule "UGUI"]
+	path = UGUI
+	url = https://github.com/achimdoebler/UGUI
