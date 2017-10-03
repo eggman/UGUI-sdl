@@ -9,9 +9,21 @@ UG_WINDOW window_1;
 #define MAX_OBJECTS        10
 UG_OBJECT obj_buff_wnd_1[MAX_OBJECTS];
 UG_BUTTON button1_1;
+UG_TEXTBOX text1_1;
 
 void window_1_callback( UG_MESSAGE* msg )
 {
+    if (msg->type == MSG_TYPE_OBJECT)
+    {
+        if(msg->id == OBJ_TYPE_BUTTON)
+        {
+            if (msg->event == OBJ_EVENT_PRESSED || msg->event == OBJ_EVENT_CLICKED)
+            {
+                if( msg->sub_id == BTN_ID_0)
+                    UG_TextboxSetText(&window_1, TXB_ID_0, "HELLO WORLD!");
+            }
+        }
+    }
 }
 
 void sdl_pset(uint16_t x, uint16_t y, uint32_t c)
@@ -45,6 +57,10 @@ int main (int argc, char **argv)
     UG_ButtonSetFont( &window_1, BTN_ID_0, &FONT_8X8 );
     UG_ButtonSetText( &window_1, BTN_ID_0, "Start" );
 
+    UG_TextboxCreate(&window_1, &text1_1, TXB_ID_0, 120, 10, 220, 120);
+    UG_TextboxSetFont(&window_1, TXB_ID_0, &FONT_8X8);
+    UG_TextboxSetText(&window_1, TXB_ID_0, "hello world!");
+    UG_TextboxSetAlignment(&window_1, TXB_ID_0, ALIGN_TOP_RIGHT);
     UG_WindowShow( &window_1 );
 
     do{
