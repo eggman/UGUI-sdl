@@ -1,4 +1,4 @@
-exapmle of µGUI with SDL.
+example of µGUI with SDL.
 
 # How to build
 
